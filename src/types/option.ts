@@ -6,7 +6,7 @@ interface Option {
 class Options {
     public port: Option = {
         option_name: "port",
-        value: "6969",
+        value: process.env.TERRARIA_PORT!,
     };
     public player_count: Option = {
         option_name: "players",
