@@ -1,0 +1,15 @@
+services:
+  webapp:
+    env_file: ".env"
+  app:
+    build: ./app
+    networks:
+      - my-network
+    ports:
+      - "${TERRARIA_PORT}:${TERRARIA_PORT}" # Terraria server port
+    container_name: terraria-app
+    volumes:
+      - ~/.local/share/Terraria
+networks:
+  internal:
+    driver: bridge
