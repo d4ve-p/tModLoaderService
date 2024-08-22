@@ -11,4 +11,6 @@ services:
       - ./tmod_data:/root/.local/share/Terraria
 networks:
   tmod-network:
+    external: true
+    name: tmod-network
     driver: bridge

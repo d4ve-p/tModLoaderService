@@ -10,7 +10,7 @@ COPY . .
 # Install node dependencies
 RUN npm install
 
-RUN apk update && apk add --no-cache curl && apk add icu-libs
+RUN apk update && apk add --no-cache curl && apk add icu-libs && apk add bash
 
 # Install tModLoader
 RUN mkdir tModLoader && \

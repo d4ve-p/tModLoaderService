@@ -64,12 +64,34 @@ export default class ServerRunner {
         if(this.isCurrentlyRunning)
             throw new Error("Server is Already Running");
 
+        console.log("Starting")
+
         this.spawner = spawn( `./tModLoader/${this.path}`, this.options);
+
         this.setStdOutListener((data) => {
+            console.log(data.toString())
             this.callClient((ws) => {
                 ws.send(data.toString());
             });
         });
+
+        this.setCloseListener(() => {
+            this.callClient((ws) => {
+                ws.send("Client closed")
+            })
+        })
+
+        this.setStdErrorListener(() => {
+            this.callClient((ws) => {
+                ws.send("Unexpected server error")
+            })
+        })
+
+        this.setExitFunction(() => {
+            this.callClient((ws) => {
+                ws.send("Server exited")
+            })
+        })
         this.isCurrentlyRunning = true;
     }
 
@@ -78,7 +100,6 @@ export default class ServerRunner {
             throw new Error("Server is not running");
 
         this.spawner!.stdin?.write(message + "\n");
-        this.spawner!.stdin?.end();
     }
 
     public stop() {
