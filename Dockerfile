@@ -12,6 +12,13 @@ RUN npm install
 
 RUN apk update && apk add --no-cache curl && apk add icu-libs && apk add bash
 
+# Install tModLoader
+RUN mkdir tModLoader && \
+  curl -L https://github.com/tModLoader/tModLoader/releases/download/v2024.06.3.1/tModLoader.zip -o tModLoader/tModLoader.zip && \
+  cd tModLoader && \
+  unzip tModLoader.zip && \
+  rm tModLoader.zip
+
 # Setup user permission
 RUN chmod +x "/app/tModLoader/start-tModLoaderServer.sh"
 
