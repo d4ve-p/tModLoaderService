@@ -1,15 +1,16 @@
 services:
-  webapp:
-    env_file: ".env"
   app:
-    build: ./app
+    env_file: ".env"
+    build: .
     networks:
-      - my-network
+      - tmod-network
     ports:
       - "${TERRARIA_PORT}:${TERRARIA_PORT}" # Terraria server port
-    container_name: terraria-app
+    container_name: tmod-app
     volumes:
-      - ~/.local/share/Terraria
+      - ./tmod_data:/root/.local/share/Terraria
 networks:
-  internal:
+  tmod-network:
+    external: true
+    name: tmod-network
     driver: bridge

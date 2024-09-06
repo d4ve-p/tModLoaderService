@@ -1,0 +1,1 @@
+curl -H 'Content-Type: application/json' -d '{"power": "on"}' -X POST localhost:9696/power
